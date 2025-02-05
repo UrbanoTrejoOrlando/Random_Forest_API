@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Notebooks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        img, svg {
+            max-width: 80%;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resultados de los Notebooks</h1>
+    <h2>Gráficas</h2>
+    {% if graficas %}
+        {% for grafica in graficas %}
+            <img src="data:image/png;base64,{{ grafica }}" alt="Gráfica">
+        {% endfor %}
+    {% else %}
+        <p>No se encontraron gráficas en los notebooks.</p>
+    {% endif %}
+
+    <h2>Árbol de Decisión</h2>
+    {% if arbol_svg %}
+        {% if arbol_svg.startswith("static/") %}
+            <object type="image/svg+xml" data="{{ arbol_svg }}"></object>
+        {% else %}
+            <object type="image/svg+xml" data="data:image/svg+xml;base64,{{ arbol_svg }}"></object>
+        {% endif %}
+    {% else %}
+        <p>No se encontró un árbol de decisión.</p>
+    {% endif %}
+</body>
+</html>
